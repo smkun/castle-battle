@@ -30,9 +30,9 @@ class Player {
 }
 
 // Handles the actions a player can take on their turn
-function playerTurn(player, opponent) {
+function playerTurn(player, computer) {
     // Displays current hit points for both players
-    console.log(`Your hit points: ${player.hitPoints}. Opponent's hit points: ${opponent.hitPoints}.`);
+    console.log(`Your hit points: ${player.hitPoints}. computer's hit points: ${computer.hitPoints}.`);
     
     // Prompts the player to create a peon or select an existing one
     const choice = prompt('Do you want to (1) create a peon or (2) select a peon? ');
@@ -62,16 +62,16 @@ function playerTurn(player, opponent) {
     }
 
     // Applies the actions selected for each peon
-    applyPeonActions(player, opponent);
+    applyPeonActions(player, computer);
 }
 
 // Applies the effects of peons' actions, modifying hit points accordingly
-function applyPeonActions(player, opponent) {
+function applyPeonActions(player, computer) {
     player.barracks.peons.forEach(peon => {
         if (peon.job === 'attack') {
             const damage = Math.floor(Math.random() * 3) + 1;
-            opponent.hitPoints -= damage;
-            console.log(`${peon.name} attacks! The opponent loses ${damage} hit points.`);
+            computer.hitPoints -= damage;
+            console.log(`${peon.name} attacks! The computer loses ${damage} hit points.`);
         } else if (peon.job === 'repair') {
             const repair = Math.floor(Math.random() * 3) + 1;
             player.hitPoints += repair;
@@ -85,10 +85,10 @@ function computerTurn(computer, player) {
     const hitPointsChange = Math.floor(Math.random() * 5) + 1;
     if (Math.random() < 0.5) {
         player.hitPoints -= hitPointsChange;
-        console.log(`The opponent attacks! You lose ${hitPointsChange} hit points.`);
+        console.log(`The computer attacks! You lose ${hitPointsChange} hit points.`);
     } else {
         computer.hitPoints += hitPointsChange;
-        console.log(`The opponent repairs! The opponent gains ${hitPointsChange} hit points.`);
+        console.log(`The computer repairs! The computer gains ${hitPointsChange} hit points.`);
     }
 }
 
@@ -121,7 +121,7 @@ function main() {
     }
 
     // Final game state and hit points are displayed
-    console.log(`Final score - Your hit points: ${player.hitPoints}, Opponent's hit points: ${computer.hitPoints}`);
+    console.log(`Final score - Your hit points: ${player.hitPoints}, computer's hit points: ${computer.hitPoints}`);
     if (gameState === 'win') {
         console.log('You win!');
     } else if (gameState === 'lose') {
